@@ -15,10 +15,10 @@
         app:layout_constraintGuide_percent="0.4" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilEmail"
+        android:id="@+id/tilEmailTwo"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="358dp"
-        android:layout_height="79dp"
+        android:layout_width="365dp"
+        android:layout_height="62dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,20 +35,20 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPassword"
+        android:id="@+id/tilPasswordTwo"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="354dp"
-        android:layout_height="82dp"
+        android:layout_width="357dp"
+        android:layout_height="67dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilEmail"
+        app:layout_constraintTop_toBottomOf="@+id/tilEmailTwo"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
+            android:id="@+id/etPasswordTwo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
@@ -69,7 +69,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tilPasswordTwo" />
 
     <TextView
         android:id="@+id/tvSignUp"
