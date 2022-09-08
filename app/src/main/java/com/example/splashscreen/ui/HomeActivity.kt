@@ -1,10 +1,9 @@
-package com.example.splashscreen
+package com.example.splashscreen.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentContainerView
+import com.example.splashscreen.R
 import com.example.splashscreen.databinding.ActivityHomeBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
    lateinit var binding:ActivityHomeBinding
@@ -21,18 +20,24 @@ class HomeActivity : AppCompatActivity() {
     fun setUpBottomNav(){
         binding.bottomNavigation.setOnItemSelectedListener { item->
             when(item.itemId){
-                R.id.plan->{
+                R.id.plan ->{
                var transaction=supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.fcvHome,PlanFragment())
+                    transaction.replace(R.id.fcvHome, PlanFragment())
                     transaction.commit()
                     true
                 }
-                R.id.track->{
-                    var transaction=supportFragmentManager.beginTransaction().replace(R.id.fcvHome,TrackFragment()).commit()
+                R.id.track ->{
+                    var transaction=supportFragmentManager.beginTransaction().replace(
+                        R.id.fcvHome,
+                        TrackFragment()
+                    ).commit()
                     true
                 }
-                R.id.profile->{
-                    supportFragmentManager.beginTransaction().replace(R.id.fcvHome,profileFragment()).commit()
+                R.id.profile ->{
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.fcvHome,
+                        profileFragment()
+                    ).commit()
                     true
                 }
                 else->false
