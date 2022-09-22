@@ -9,6 +9,7 @@ import com.example.splashscreen.models.loginRequest
 import com.example.splashscreen.models.loginResponce
 import com.example.splashscreen.repository.UserRepository
 import kotlinx.coroutines.launch
+import retrofit2.awaitResponse
 
 class UserViewModel:ViewModel() {
     val userRepository=UserRepository()
@@ -31,13 +32,10 @@ class UserViewModel:ViewModel() {
     fun registerUser(registerRequest: RegisterRequest){
         viewModelScope.launch {
             val response=userRepository.registerUser(registerRequest)
-            if (response.isSuccessful){
-                registerResponseLiveData.postValue(response.body())
+            if (response.isExecuted){
+//                loginResponseLiveData.postValue(response.)
             }
-            else{
-                val error=response.errorBody()?.string()
-                registerErrorLiveData.postValue(error)
-            }
+
         }
     }
 
