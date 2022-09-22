@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import com.example.splashscreen.ViewModel.UserViewModel
 import com.example.splashscreen.api.ApiInterface
-import com.example.splashscreen.api.apiClient
+import com.example.splashscreen.api.ApiClient
 import com.example.splashscreen.databinding.ActivitySignUpBinding
 import com.example.splashscreen.models.RegisterRequest
 import com.example.splashscreen.models.RegisterResponse
@@ -16,12 +19,24 @@ import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
   lateinit var binding:ActivitySignUpBinding
+    val userViewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         castView()
     }
+    override fun onResume() {
+        super.onResume()
+        userViewModel.registerResponseLiveData.observe(this, Observer { registerResponse->
+            Toast.makeText(baseContext,registerResponse.message,Toast.LENGTH_LONG).show()
+            startActivity(Intent(baseContext,loginActivity::class.java))
+        })
+        userViewModel.registerErrorLiveData.observe(this, Observer { registerError->
+            Toast.makeText(baseContext,registerError,Toast.LENGTH_LONG).show()
+        })
+        }
+
     fun castView(){
         binding.btnSignUp.setOnClickListener { validateSignup() }
         binding.btnLoginTwo.setOnClickListener {
@@ -81,12 +96,13 @@ class SignUpActivity : AppCompatActivity() {
 
         if(!error){
             val registerRequest=RegisterRequest(firstName,lastName,phoneNumber,email,password)
-            makeRegisterRequest(registerRequest)
-            startActivity(Intent(this,loginActivity::class.java))
+//            makeRegisterRequest(registerRequest)
+//            startActivity(Intent(this,loginActivity::class.java))
+            userViewModel.registerUser(registerRequest)
         }
     }
     fun makeRegisterRequest(registerRequest: RegisterRequest){
-        val apiClient= apiClient.buildApiClient(ApiInterface::class.java)
+        val apiClient= ApiClient.buildApiClient(ApiInterface::class.java)
         val request=apiClient.registerUser(registerRequest)
 
         request.enqueue(object :Callback<RegisterResponse>{

@@ -1,20 +1,37 @@
 package com.example.splashscreen.ui
 
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import com.example.splashscreen.R
 import com.example.splashscreen.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
    lateinit var binding:ActivityHomeBinding
+   lateinit var sharePrefs:SharedPreferences
+   lateinit var tvLogout:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        tvLogout=findViewById(R.id.tvLogout)
+        tvLogout.setOnClickListener {
+            val editor=sharePrefs.edit()
+            editor.putString("ACCESS_TOKEN","")
+            editor.putString("USER_ID","")
+            editor.putString("PROFILE_ID","")
+            editor.apply()
+            startActivity(Intent(this,loginActivity::class.java))
+            logOutRequest()
+        }
         castViews()
         setUpBottomNav()
     }
     fun castViews(){
+        binding.fcvHome
+        binding.bottomNavigation
 
     }
     fun setUpBottomNav(){
@@ -43,5 +60,8 @@ class HomeActivity : AppCompatActivity() {
                 else->false
             }
         }
+    }
+    fun logOutRequest(){
+        sharePrefs.edit().clear().commit()
     }
 }
