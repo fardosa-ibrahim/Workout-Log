@@ -89,9 +89,6 @@ class SignUpActivity : AppCompatActivity() {
         if (phoneNumber.isBlank()) {
             binding.tilPhone.error = "Confirmation is required"
         }
-        if (!error) {
-
-        }
         if (password != Confirm) {
             binding.tilConfirm.error = "Invalid confirmation"
         }
@@ -102,10 +99,6 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    fun makeRegisterRequest(registerRequest: RegisterRequest) {
-        val apiClient = ApiClient.buildApiClient(ApiInterface::class.java)
-        val request = apiClient.RegisterUser(registerRequest)
-    }
 }
 
 
