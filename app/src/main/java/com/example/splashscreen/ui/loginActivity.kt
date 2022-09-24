@@ -12,6 +12,7 @@ import com.example.splashscreen.ViewModel.UserViewModel
 import com.example.splashscreen.api.ApiInterface
 import com.example.splashscreen.api.ApiClient
 import com.example.splashscreen.databinding.ActivityLoginBinding
+import com.example.splashscreen.models.RegisterRequest
 import com.example.splashscreen.models.loginRequest
 import com.example.splashscreen.models.loginResponce
 import retrofit2.Call
@@ -71,6 +72,7 @@ class loginActivity : AppCompatActivity() {
         if (!error) {
             val loginRequest = loginRequest(email, password)
             binding.pbLogin.visibility = View.VISIBLE
+            userViewModel.loginUser(loginRequest)
         }
     }
 
