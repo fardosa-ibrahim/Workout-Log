@@ -12,34 +12,36 @@ import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
 
 class UserViewModel:ViewModel() {
-    val userRepository=UserRepository()
-    val loginResponseLiveData=MutableLiveData<loginResponce>()
-    val errorLiveData=MutableLiveData<String>()
-    var registerResponseLiveData=MutableLiveData<RegisterResponse>()
-    val registerErrorLiveData= MutableLiveData<String?>()
+    val userRepository = UserRepository()
+    val loginResponseLiveData = MutableLiveData<loginResponce>()
+    val errorLiveData = MutableLiveData<String>()
+    var registerResponseLiveData = MutableLiveData<RegisterResponse>()
+    val registerErrorLiveData = MutableLiveData<String?>()
 
-    fun loginUser(loginRequest: loginRequest){
+    fun loginUser(loginRequest: loginRequest) {
         viewModelScope.launch {
-            val responce=userRepository.loginUser(loginRequest)
-            if(responce.isSuccessful){
-                loginResponseLiveData.postValue(responce.body())
-            }
-            else{
-                errorLiveData.postValue(responce.errorBody()?.string())
+            val response = userRepository.loginUser(loginRequest)
+            if (response.isSuccessful) {
+                loginResponseLiveData.postValue(response.body())
+            } else {
+                errorLiveData.postValue(response.errorBody()?.string())
             }
         }
     }
-    fun registerUser(registerRequest: RegisterRequest){
+
+    fun registerUser(RegisterRequest: RegisterRequest) {
         viewModelScope.launch {
-            val response=userRepository.registerUser(registerRequest)
-            if (response.isExecuted){
-//                loginResponseLiveData.postValue(response.)
+            val response = userRepository.registerUser(RegisterRequest)
+            if (response.isSuccessful) {
+                registerResponseLiveData.postValue(response.body())
+            } else {
+                errorLiveData.postValue(response.errorBody()?.string())
             }
 
         }
     }
+}
 
 
 
 
-    }
